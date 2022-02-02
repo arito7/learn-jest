@@ -11,21 +11,10 @@ function reverseString(str) {
 }
 
 const calculator = {
-  add(n1, n2) {
-    return n1 + n2;
-  },
-  subtract(n1, n2) {
-    return n1 - n2;
-  },
-  divide(n1, n2) {
-    if (n2 !== 0) {
-      return n1 / n2;
-    }
-    return Error('Cannot divide by 0');
-  },
-  multiply(n1, n2) {
-    return n1 * n2;
-  },
+  add: (n1, n2) => n1 + n2,
+  subtract: (n1, n2) => n1 - n2,
+  divide: (n1, n2) => (n2 === 0 ? null : n1 / n2),
+  multiply: (n1, n2) => n1 * n2,
 };
 
 // a: 97 z: 122
@@ -35,17 +24,15 @@ function caesarCipher(str, shift) {
   for (let i = 0; i < str.length; i += 1) {
     const code = str.charCodeAt(i);
     if (code >= 65 && code <= 90) {
-      if (code + shift > 90) {
-        cipher += String.fromCharCode(code + shift - 26);
-      } else {
-        cipher += String.fromCharCode(code + shift);
-      }
+      cipher +=
+        code + shift > 90
+          ? String.fromCharCode(code + shift - 26)
+          : String.fromCharCode(code + shift);
     } else if (code >= 97 && code <= 122) {
-      if (code + shift > 122) {
-        cipher += String.fromCharCode(code + shift - 26);
-      } else {
-        cipher += String.fromCharCode(code + shift);
-      }
+      cipher +=
+        code + shift > 122
+          ? String.fromCharCode(code + shift - 26)
+          : String.fromCharCode(code + shift);
     } else {
       cipher += str[i];
     }
@@ -54,16 +41,15 @@ function caesarCipher(str, shift) {
 }
 
 function analyzeArray(arr) {
-  const obj = {};
-  obj.length = arr.length;
-  obj.max = Math.max(...arr);
-  obj.min = Math.min(...arr);
-  obj.average =
-    arr.reduce((b, v) => {
-      return (b += v);
-    }, 0) / obj.length;
-
-  return obj;
+  return {
+    length: arr.length,
+    max: Math.max(...arr),
+    min: Math.min(...arr),
+    average:
+      arr.reduce((b, v) => {
+        return (b += v);
+      }, 0) / arr.length,
+  };
 }
 
 module.exports = {
